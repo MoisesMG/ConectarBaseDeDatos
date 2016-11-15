@@ -13,6 +13,8 @@ import android.provider.BaseColumns;
  */
 
 public class PeopleHelper extends SQLiteOpenHelper {
+
+    //nombre y version de la base de datos
     private static final String DATA_BASE_NAME = "people.db";
     private static final int DATA_BASE_VERSION = 1;
 
@@ -21,7 +23,7 @@ public class PeopleHelper extends SQLiteOpenHelper {
     private static final String INTEGER_TIPE= "INTEGER";
 
     //esta es la sentencia para crear la tabla Persona
-    private static final String SQL_CREATE_TABLE = "CREATE TABLE "+ Contrato.TABLE_NAME +
+    private static final String SQL_CREATE_TABLE_PERSONA = "CREATE TABLE "+ Contrato.TABLE_NAME +
             "(" + Contrato._ID + " " + INTEGER_TIPE + "PRIMARY KEY, " +
             Contrato.NOMBRE + " " + TEXT_TIPE  + " ," +
             Contrato.EDAD + " " + INTEGER_TIPE +
@@ -37,7 +39,8 @@ public class PeopleHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //aqui se crea la base datos
+        //aqui se crea la base datos, aqui se ejecutan las consultas de creacin
+        db.execSQL(SQL_CREATE_TABLE_PERSONA);
     }//fin del metodo
 
     @Override
