@@ -12,8 +12,14 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class PeopleHelper extends SQLiteOpenHelper {
-    public PeopleHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    private static final String DATA_BASE_NAME = "people.db";
+    private static final int DATA_BASE_VERSION = 1;
+
+    /*el contexto es el lugar donde se almacena la aplicacion con colores, estilos, etc para que la base de datos
+    * sepa a que aplicaicon pertenece, SqliteOpenHelper ya tiene un cursor por defecto por eso se pase null en el
+    * contructor*/
+    public PeopleHelper(Context context){
+        super(context, DATA_BASE_NAME, null, DATA_BASE_VERSION);
     }
 
     @Override
