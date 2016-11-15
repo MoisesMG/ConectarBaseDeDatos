@@ -16,13 +16,16 @@ public class PeopleHelper extends SQLiteOpenHelper {
     private static final String DATA_BASE_NAME = "people.db";
     private static final int DATA_BASE_VERSION = 1;
 
-    //esta es la sentencia para crear la tabla Persona
-    private static final String SQL_CREATE_TABLE = "CREATE TABLE "+ Contrato.TABLE_NAME +
-            "(" + Contrato._ID + "";
-
     //definicion de los tipos de datos de las tablas
     private static final String TEXT_TIPE= "TEXT";
     private static final String INTEGER_TIPE= "INTEGER";
+
+    //esta es la sentencia para crear la tabla Persona
+    private static final String SQL_CREATE_TABLE = "CREATE TABLE "+ Contrato.TABLE_NAME +
+            "(" + Contrato._ID + " " + INTEGER_TIPE + "PRIMARY KEY, " +
+            Contrato.NOMBRE + " " + TEXT_TIPE  + " ," +
+            Contrato.EDAD + " " + INTEGER_TIPE +
+            ");";
 
 
     /*el contexto es el lugar donde se almacena la aplicacion con colores, estilos, etc para que la base de datos
