@@ -3,6 +3,7 @@
  */
 package app.rojoyazul.com.acceso_a_datos;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -41,6 +42,23 @@ public class PeopleHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //aqui se crea la base datos, aqui se ejecutan las consultas de creacin
         db.execSQL(SQL_CREATE_TABLE_PERSONA);
+    }//fin del metodo
+
+    /**
+     * El metodo es para insertar registros en la tabla persona, pasando los parametros nombre y edad
+     * para ser guardado en la base de datos.
+     * @param nombre valor de la columna nombre
+     * @param edad valor del campo edad
+     * @return verdadero si se inserto, falso si hubo error
+     */
+    public boolean InsertarRegistro(String nombre, int edad){
+        //primero debemos obtener la base de datos en modo escritura
+        ContentValues values = new ContentValues();
+        values.put(Contrato.NOMBRE, nombre);//para agregar los valores a insertar en el metodo insert
+        values.put(Contrato.EDAD, edad);
+        long resultado = (long) this.getWritableDatabase().insert(Contrato.TABLE_NAME, null,values);
+
+        return resultado != -1; //si el resultado es diferente de -1 retorno verdadero
     }//fin del metodo
 
     @Override
