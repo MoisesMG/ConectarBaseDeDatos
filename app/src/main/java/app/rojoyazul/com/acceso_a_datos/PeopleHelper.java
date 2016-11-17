@@ -5,9 +5,11 @@ package app.rojoyazul.com.acceso_a_datos;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 /**
  * Created by Moises on 14/11/2016.
@@ -16,7 +18,7 @@ import android.provider.BaseColumns;
 public class PeopleHelper extends SQLiteOpenHelper {
 
     //nombre y version de la base de datos
-    private static final String DATA_BASE_NAME = "people.db";
+    private static final String DATA_BASE_NAME = "people_v1.db";
     private static final int DATA_BASE_VERSION = 1;
 
     //definicion de los tipos de datos de las tablas
@@ -25,7 +27,7 @@ public class PeopleHelper extends SQLiteOpenHelper {
 
     //esta es la sentencia para crear la tabla Persona
     private static final String SQL_CREATE_TABLE_PERSONA = "CREATE TABLE "+ Contrato.TABLE_NAME +
-            "(" + Contrato._ID + " " + INTEGER_TIPE + "PRIMARY KEY, " +
+            "( " + Contrato._ID + " " + INTEGER_TIPE + " PRIMARY KEY, " +
             Contrato.NOMBRE + " " + TEXT_TIPE  + " ," +
             Contrato.EDAD + " " + INTEGER_TIPE +
             ");";
@@ -59,6 +61,33 @@ public class PeopleHelper extends SQLiteOpenHelper {
         long resultado = (long) this.getWritableDatabase().insert(Contrato.TABLE_NAME, null,values);
 
         return resultado != -1; //si el resultado es diferente de -1 retorno verdadero
+    }//fin del metodo
+
+    /**
+     * El metodo lista los registros en la consala
+     */
+    public void ListarRegistros(){
+        //primero debemos obtener la base de datos en modo lectura
+        SQLiteDatabase database = this.getReadableDatabase();
+
+        //arreglo de cadenas con los nombre de las columnas de la base de datos
+        String [] columnas = {Contrato._ID, Contrato.NOMBRE, Contrato.EDAD};
+
+        //variable para almacenar los resultados de la base de datos
+        Cursor cursor;
+
+        //consulta para exraer los datos de las columnas
+        cursor = database.query(Contrato.TABLE_NAME, columnas, null, null, null, null, null, null);
+
+        //recorremos todas las filas recuperadas
+        while(cursor.moveToNext()){
+            String nombre = cursor.getString(1);
+            int edad = cursor.getInt(2);
+
+            Log.d("Filas", "Nombre: " + nombre + " Edad: " + edad + "\n");
+        }//fin de while
+
+        cursor.close();
     }//fin del metodo
 
     @Override
